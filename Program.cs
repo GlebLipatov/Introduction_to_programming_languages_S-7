@@ -11,7 +11,7 @@ const string QUIT = "q";
 
 void Start()
 {
-    Console.WriteLine("Введите номер задачи (47, 50, 52) или q что бы выйти:");
+    Console.WriteLine("Введите номер задачи (47, 50, 52) или 'q' что бы выйти:");
 
     switch (isValidInputMenu(Console.ReadLine()))
     {
@@ -20,7 +20,7 @@ void Start()
             Start();
             break;
         case FIFTY:
-            Task47(false); // Схитрил =) Но скорее так делать не правильно, просто решил потренироваться!
+            Task47(false); // Схитрил =) Но скорее всего так делать не правильно, просто решил потренироваться!
             Start();
             break;
         case FIFTYTWO:
@@ -28,14 +28,14 @@ void Start()
             Start();
             break;
         case QUIT:
-            Console.WriteLine("q");
+            Console.WriteLine("Пока!");
             break;
     }
 }
 
 string isValidInputMenu(string userInput)
 {
-    userInput.ToLower();
+    userInput = userInput.ToLower();
 
     if (userInput == FORTYSEVEN
      || userInput == FIFTY
@@ -46,7 +46,7 @@ string isValidInputMenu(string userInput)
     }
     else
     {
-        Console.WriteLine("Введите номер задачи (47, 50, 52) или q что бы выйти:");
+        Console.WriteLine("Введите номер задачи (47, 50, 52) или 'q' что бы выйти:");
         isValidInputMenu(Console.ReadLine());
     }
     return "";
@@ -88,14 +88,14 @@ void Task47(bool isFortyseven)
 
     // Печатаем массив.
     for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < cell; j++)
         {
-            for (int j = 0; j < cell; j++)
-            {
-                Console.Write($"{Math.Round(matrix[i, j], 1)} ");
-            }
-            Console.WriteLine("");
+            Console.Write($"{Math.Round(matrix[i, j], 1)} ");
         }
         Console.WriteLine("");
+    }
+    Console.WriteLine("");
 
     // Вводим и проверяем данные для 50 задачи.
     if (!isFortyseven)
@@ -104,7 +104,7 @@ void Task47(bool isFortyseven)
         inputRow = inputParametrs(Console.ReadLine());
         Console.Write("Введите номер столбца элемента: \n");
         inputCell = inputParametrs(Console.ReadLine());
-        
+
 
         if (inputRow > row || inputCell > cell)
         {
@@ -145,12 +145,13 @@ int inputParametrs(string userInput)
 void Task52()
 {
     int result;
-    int row = new Random().Next(10, 20);
-    int cell = new Random().Next(10, 20);
+    int row = new Random().Next(5, 10);
+    int cell = row;
 
     int[,] matrix = new int[row, cell];
     int[] results = new int[cell];
 
+    // Заполняем массивы.
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < cell; j++)
@@ -160,23 +161,30 @@ void Task52()
         }
     }
 
-    for (int i = 0; i < row; i++)
+    // Подсчитываем среднее арифметическое столбцов.
+    for (int i = 0; i < cell; i++)
     {
-        results[i] /= row;
+        results[i] /= cell;
     }
 
+    // Печатаем матрицу.
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < cell; j++)
         {
             Console.Write($"{matrix[i, j]} ");
         }
-        Console.WriteLine("\n");
-        
+        Console.WriteLine("");
     }
 
+    Console.WriteLine("");
+
+    // Печатаем среднее арифметическое.
     foreach (int value in results)
     {
-        Console.Write($"{value } \n\n");
+        Console.Write($"{value} ");
     }
+    Console.WriteLine("\n");
 }
+
+// Конец 52 задачи.
